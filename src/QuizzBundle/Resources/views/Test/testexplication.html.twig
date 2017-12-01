@@ -1,0 +1,33 @@
+{% extends('base.html.twig') %}
+
+{% block body %}
+    {% if erreur is defined %}
+        <h4><FONT color="red">{{ erreur }}</FONT></h4>
+    {% endif %}
+
+    <h1 align=center>Bienvenue sur Slicktest</h1><br>
+    <img alt="logo" src="{{ asset('pictures/SLICKTEAM-GRAPHISME.png') }}" width="60px"/>
+    <h1 align=center><p> Voici les consignes pour le passage du test " {{ nomTest }} " composé de {{ nbQuestionDuTest }} questions réparties sur {{ nbCategorieTest }} categories</p></h1><br><br>
+    <h2>
+        <ul>
+            <li>Impossiblité de retour à la question précedente</li>
+        </ul>
+    </h2>
+
+    <h3>
+        <a id="back" onclick="ChoixCategorie({{ app.request.cookies.get('idTestEnCours') }} )"class="btn btn-primary btn-lg btn-block  active" role="button" title="Choix Categorie">Choix de la categorie</a>
+    </h3>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script type="text/javascript">
+        function ChoixCategorie(idTest )
+        {
+            document.getElementById("back").style.display="none";
+            document.location.href="http://localhost:8080/quizz/web/app_dev.php/test/categories"
+        }
+
+    </script>
+{% endblock %}

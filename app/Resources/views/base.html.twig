@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}SlicKuizz{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('css/base.css') }}"/>
+        <link rel="icon" type="image/x-icon" href="{{ asset('pictures/SLICKTEAM-GRAPHISME.png') }}" />
+        <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+        </head>
+    <body>
+        <nav>
+            <h1><a href="{{'/quizz/web/app_dev.php/'}}"/>Quizz</h1>
+            <h1><a href="/quizz/web/app_dev.php/test"/>Test</h1>
+            <a href="http://slickteam.fr/" target="_blank"><img alt="logo" src="{{ asset('pictures/SLICKTEAM-GRAPHISME.png') }}" width="60px"/></a>
+        </nav>
+        <div class="container">
+        {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+        </div>
+    </body>
+    <footer>
+        &copy; Copyright 2017 SlickTeam  <div>Icons made by <a href="https://www.flaticon.com/authors/roundicons-freebies" title="Roundicons Freebies">Roundicons Freebies</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+    </footer>
+</html>

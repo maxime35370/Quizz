@@ -1,0 +1,12 @@
+quizzhomepage:
+  path:    /
+  defaults: { _controller: QuizzBundle:Quizz:index}
+
+quizzquestion:
+  path:     /question/{id}
+  defaults: { _controller: QuizzBundle:Quizz:question}
+
+quizzresultat:
+  path:     /resultat
+  defaults: { _controller: QuizzBundle:Resultat:resultat}
+

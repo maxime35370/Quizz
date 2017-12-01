@@ -1,0 +1,39 @@
+{% extends('base.html.twig') %}
+
+{% block body %}
+    {% if erreur is defined %}
+        <h4><FONT color="red">{{ erreur }}</FONT></h4>
+    {% endif %}
+    <div id="listeTest">
+        {% for test in listeTest %}
+        <button class="btn btn-info btn-lg btn-block  active" onclick="ChoixTest({{ test.getId() }})" id="{{ test.getId() }}" style="display:block">{{ test.getLibelle }}</button>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+
+    <script type="text/javascript">
+
+
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays*24*60*60*1000));
+            var expires = "expires="+ d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
+
+
+
+
+
+
+        function ChoixTest(id)
+        {
+            setCookie("idTestEnCours",id,365);
+            document.location.href="http://localhost:8080/quizz/web/app_dev.php/test/explication"
+
+        }
+    </script>
+{% endblock %}

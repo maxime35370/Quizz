@@ -1,0 +1,88 @@
+nav{
+    height:100px;
+    width: 100%;
+    top:0px;
+    left:0px;
+    right:0px;
+    background: rgba(0,0,0,0.8);
+    border:1px solid white;
+    color:white;
+    font-weight: bold;
+    padding-left:100px;
+    padding-right:100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+.container{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    text-align:center;
+}
+
+#conteneur{
+    display: flex;
+    flex-direction: row;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+.element{
+    margin-right: 25px;
+    margin-left: 25px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+footer{
+
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+}
+
+.liensRS{
+    display: inline-block;
+    margin:5px 20px;
+    padding: 5px;
+}
+
+#contactSlickTeam p {
+    padding-left: 23px;
+    padding-right: 23px;
+}
+
+nav a{
+    margin-right: 20px;
+}
+
+#btn-vertical{
+    background-color:yellow;
+    top: 100px;
+    bottom: 100px;
+    height:100px;
+    width:300px;
+}
+
+
+#profils p{
+
+    text-align: justify;
+    float: right;
+}
+
+#profils img{
+    float: left;
+}
+
+div #texteprofil p{
+    float: left;
+}
+
+
+
+

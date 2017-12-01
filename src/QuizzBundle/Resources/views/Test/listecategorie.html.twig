@@ -1,0 +1,134 @@
+{% extends('base.html.twig') %}
+
+{% block body %}
+    {% if erreur is defined %}
+        <h4><FONT color="red">{{ erreur }}</FONT></h4>
+    {% endif %}
+
+
+
+    <div id="listeCategorie">
+    <div></div>
+
+    {% if listeCategories is defined %}
+        {% for categorie in listeCategories %}
+            <button class="btn btn-info btn-lg btn-block  active" onclick="ChoixCategorie({{ categorie.getId() }})" id="{{ categorie.getId() }}" style="display:block">{{ categorie.getLibelle }}</button>
+        {% endfor %}
+    {% else %}
+
+
+    <h3>
+        <a id="mail" style="display: block" class="btn btn-primary btn-lg btn-block  active" role="button" title="Valider le Test" onclick="afficherFinTest()">Valider le Test</a>
+    </h3>
+    <a id="fin" href="http://slickteam.fr/" style="display: none" class="btn btn-primary btn-lg btn-block  active" role="button" title="Fin du Test">Quitter le Test</a>
+
+        {% if tabScore is defined %}
+        <div id="secondPassage" style="display: block">
+            {% for resultat in tabScore %}
+
+                {% if loop.first%}
+                    <h3>
+                    {{ resultat }} <br>
+                    </h3>
+
+                {% elseif resultat ends with '[X]' %}
+
+                    <h5>
+                        <div style="color: #d40031">{{ resultat }}<br></div>
+                    </h5>
+                {% elseif resultat ends with '[V]' %}
+
+                    <h5>
+                        <div style="color:#008f05 ">{{ resultat }}<br></div>
+                    </h5>
+                {% elseif resultat ends with '[-]' %}
+
+                    <h5>
+                        {{ resultat }}<br>
+                    </h5>
+
+                {% elseif resultat starts with 'Resultat de la Categorie' %}
+
+                    <h4>
+                        {{ resultat }}<br><br>
+                    </h4>
+
+                {% elseif loop.last %}
+                    <h2>
+                    {{ resultat }} <br>
+                    </h2>
+
+
+                {% else %}
+                    <h4>
+                    {{ resultat }} <br>
+                    </h4>
+                {% endif %}
+            {% endfor %}
+            <br><br>
+        </div>
+        {% endif %}
+
+    {% endif %}
+
+
+{% endblock %}
+
+{% block javascripts %}
+
+
+    <script type="text/javascript">
+
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays*24*60*60*1000));
+            var expires = "expires="+ d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
+
+
+        function ChoixCategorie(id)
+        {
+            setCookie("idCategorieEnCours",id,365);
+            document.location.href="http://localhost:8080/quizz/web/app_dev.php/test/categories/questions"
+        }
+
+        function afficherFinTest(){
+            if(getCookie('AEnvoyer') == 1){
+                document.location.href="/quizz/web/app_dev.php/test/categories"
+                document.getElementById("mail").style.display="block";
+                document.getElementById("fin").style.display="none";
+            }
+            else{
+                document.getElementById("mail").style.display="none";
+                document.getElementById("fin").style.display="block";
+            }
+
+        }
+
+        function  getCookie(name){
+     if(document.cookie.length == 0)
+       return null;
+
+     var regSepCookie = new RegExp('(; )', 'g');
+     var cookies = document.cookie.split(regSepCookie);
+
+     for(var i = 0; i < cookies.length; i++){
+       var regInfo = new RegExp('=', 'g');
+       var infos = cookies[i].split(regInfo);
+       if(infos[0] == name){
+         return unescape(infos[1]);
+       }
+     }
+     return null;
+   }
+
+
+   //si le cookie AEnvoyer = 1
+
+   //Sinon afficher l'autre bouton
+
+
+    </script>
+{% endblock %}

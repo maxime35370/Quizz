@@ -1,0 +1,118 @@
+{% extends('base.html.twig') %}
+
+{% block body %}
+    {% if erreur is defined %}
+        <h4><FONT color="red">{{ erreur }}</FONT></h4>
+    {% endif %}
+
+    <div>
+    {% for unequestion in question %}
+    <div class="question{{ unequestion.getId() }}" id="{{ unequestion.getId() }}" style="display: none">
+
+        <h1>{{ unequestion.getLibelle }}</h1>
+        {% if unequestion.getUrl() != null %}
+        <img src="{{ unequestion.getUrl() }}"height="450px">
+        {% endif %}
+        <div id="conteneur" >
+            {% for reponse in listeReponse %}
+                {% if reponse.getQuestions().getId() is same as(unequestion.getId()) %}
+
+                    <div class="element" onclick="QuestionSuivante({{ unequestion.getId() }},{% for dQuestion in derniereQuestionDeLaCategorie %}{{ dQuestion.getId() }}{% endfor %},{{ reponse.getId() }})">
+
+                        {% if reponse.getUrl() != null %}
+                            <img src="{{ reponse.getUrl() }}" height="150px" onclick="QuestionSuivante({{ unequestion.getId() }},{% for dQuestion in derniereQuestionDeLaCategorie %}{{ dQuestion.getId() }}{% endfor %},{{ reponse.getId() }})"><br>
+                        {% else %}
+                            <div> {{ reponse.getLibelle }} </div><br>
+                        {% endif %}
+                    </div>
+                {%  endif %}
+            {% endfor %}
+        </div>
+    </div >
+
+    {% endfor %}
+
+    </div>
+    <br>
+
+{% endblock %}
+
+{% block javascripts %}
+
+<script src="{{ asset('js/QuizzQue.js') }}"></script>
+<script type="text/javascript">
+
+    function QuestionSuivante(id,idMax,idReponseSelctionnee)
+    {
+        //Methode pour ajouter un cookie de la question actuelle avec l'id de la reponse selctionnee
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays*24*60*60*1000));
+            var expires = "expires="+ d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
+        setCookie("repQuestion"+id,idReponseSelctionnee,365);
+
+
+
+
+
+
+
+        if (id < idMax) //Si id actuel est inférieur à l'id de la derniere question de cette categorie
+        {
+            if(document.getElementById(id)!= null) {    //Recuperation de l'element pour id "id" et verifier qu'il n'est pas null
+                var idSuivant = id + 1;                 //Incrémentation pour accéder à l'element suivant
+
+                if (document.getElementById(idSuivant) != null) {                       //Récupération de l'élément pour id "idSuivant" et verifier qu'il n'est pas null
+                    document.getElementById(idSuivant).style.display = "block" ;         //Afficher le bloc suivant
+                    document.getElementById(id).style.display = "none"                  //Masquer le bloc actuel
+                }
+                else {                                  //Si le bloc suivant n'existe pas
+                    var idInc = idSuivant++;            //On incrémente
+                    QuestionSuivante(idInc, idMax)      // On rappel la methode
+                }
+            }
+            else {                                                      //Si l'element récupéré est null
+                var newid = id+1;                                       //On incrémente pour passer au suivant
+                document.getElementById(id-1).style.display = "none" ;   //On masque le bloc précedent
+                var stopBoucle = false;
+                for (newid; newid <= idMax ; newid++){          //Réalisation d'un boucle pour trouver l'element suivant
+
+                    var element = document.getElementById(newid);       //Récupération de l'élément
+                    if(element != null){                                //Verifier qu'il est différent de null
+                        if (!stopBoucle) {
+                            element.style.display = "block"  ;                 //Oui il existe donc on l'affiche
+                            stopBoucle=true;
+                        }
+
+                    }
+                }
+            }
+        }
+        else if (id=idMax){         //Si l'id est égal à l'id de la derniere question de la catégorie
+            document.getElementById(id).style.display = "none"      //On masque le bloc de la question
+            //document.getElementById("profil").style.display ="block"    //On affiche le bouton pour afficher le resultat( profils)
+            document.location.href="http://localhost:8080/quizz/web/app_dev.php/resultat"
+            //efectuer la redirection directement vers la page de resultat sans passer par le bouton ?
+        }
+
+    }
+/*  **************************************************************************** Fonctionnelle
+    function QuestionSuivante(id){
+        document.getElementById(id).style.display = "none"
+        var idSuivant = id+1;
+        PremiereQuestion(idSuivant);
+    }*/
+
+    function PremiereQuestion(id) { // On déclare la fonction PremiereQuestion qui prend en param un id
+        if(document.getElementById(id) != null)
+        {
+            document.getElementById(id).style.display = "block"
+            var btngo = document.getElementById('go'); // On masque le bouton go alias c'est parti !
+            btngo.style.display = "none"
+        }
+    }
+</script>
+{% endblock %}

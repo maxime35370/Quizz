@@ -1,0 +1,59 @@
+{% extends('base.html.twig') %}
+
+{% block body %}
+
+    {% if erreur is defined %}
+        <h4><FONT color="red">{{ erreur }}</FONT></h4>
+    {% endif %}
+
+    <div id="profils">
+        <div id="profils_choix" style="display: block">
+            <div id="typeprofil">
+                <h2>Vous etes {{ profil.getNom() }}</h2>
+            </div>
+            <div id="texteprofil">
+                <p>
+                    <img alt="{{ profil.getNom() }}" src="{{ profil.getUrl() }}" width="250px" style="margin-bottom: 25px;margin-right: 25px;margin-top: 25px;" align="absmiddle"/>
+                    {{ profil.GetTexte }}
+                </p>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div>
+        <div id="contactSlickTeam" class="liensRS">
+            <p><h5>Suivez nous sur les réseaux sociaux :</h5>
+            <br>
+                <p>
+                    <a href="https://www.facebook.com/SlickteamFR/" target="_blank" rel="noopener"><img class="alignnone wp-image-29366 size-full" style="margin-right: 20px; margin-top: 20px;"src="https://battledev.blogdumoderateur.com/wp-content/uploads/2017/02/facebook.png"alt="" width="41" height="41"></a>
+                    <a href="https://twitter.com/SlickteamFR" target="_blank" rel="noopener"><img class="alignnone wp-image-29368 size-full" style="margin-right: 20px; margin-top: 20px;" src="https://battledev.blogdumoderateur.com/wp-content/uploads/2017/02/twitter.png" alt="" width="41" height="41"></a>
+                    <a href="https://www.linkedin.com/company/slickteam" target="_blank" rel="noopener"><img class="alignnone wp-image-29367 size-full" style="margin-right: 20px; margin-top: 20px;"src="https://battledev.blogdumoderateur.com/wp-content/uploads/2017/02/linkedin.png"alt="" width="41" height="41"></a>
+                </p>
+            </p>
+        </div>
+        <div class="liensRS">
+            <h3>
+                <a href="{{'/quizz/web/app_dev.php/'}}" class="btn btn-primary btn-lg btn-block  active" role="button" title="Restart">Recommencer le Quizz</a>
+            </h3>
+        </div>
+        <div id="partage" class="liensRS">
+            <h5>Partager le quizz</h5>
+            <a href="{{'https://www.facebook.com/sharer/sharer.php?u=http://localhost:8080/quizz/web/app_dev.php/'}}" title="FBPart"><img class="alignnone wp-image-29366 size-full" style="margin-right: 20px; margin-top: 20px;"src="https://battledev.blogdumoderateur.com/wp-content/uploads/2017/02/facebook.png"alt="" width="41" height="41"></a>
+            <a href="{{'https://twitter.com/intent/tweet/?url=http://localhost:8080/quizz/web/app_dev.php&text=Viens aussi réaliser ce test pour découvrir ton profil&via=@SlickteamFR'}}" title="TwPart"><img class="alignnone wp-image-29368 size-full" style="margin-right: 20px; margin-top: 20px;"src="https://battledev.blogdumoderateur.com/wp-content/uploads/2017/02/twitter.png"alt="" width="41" height="41"></a>
+            <a href="{{'http://www.linkedin.com/shareArticle?mini=true&url=http://localhost:8080/quizz/web/app_dev.php/&title=Decouvre ton profil via ce quizz'}}" title="LinkedInPart"><img class="alignnone wp-image-29367 size-full" style="margin-right: 20px; margin-top: 20px;"src="https://battledev.blogdumoderateur.com/wp-content/uploads/2017/02/linkedin.png"alt="" width="41" height="41"></a>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/QuizzRes.js') }}"></script>
+    <script type="text/javascript">
+    </script>
+
+
+{% endblock %}
